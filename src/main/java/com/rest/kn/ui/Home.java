@@ -4,6 +4,7 @@
  */
 package com.rest.kn.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +17,9 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
+	@Autowired
+	ManageCategory manageCategory;
+	
     public Home() {
         initComponents();
     }
@@ -43,7 +47,9 @@ public class Home extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 0));
 
         jPanel2.setBackground(new java.awt.Color(255, 204, 0));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        btnManageCustomer.setBackground(new java.awt.Color(153, 153, 153));
         btnManageCustomer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnManageCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customers.png"))); // NOI18N
         btnManageCustomer.setText("Manage Customer");
@@ -53,6 +59,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnViewOrders.setBackground(new java.awt.Color(153, 153, 153));
         btnViewOrders.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnViewOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/View-orders.png"))); // NOI18N
         btnViewOrders.setText("View Orders");
@@ -62,6 +69,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(153, 153, 153));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Exit.png"))); // NOI18N
         btnLogout.setText("Logout");
@@ -71,6 +79,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnInvoice.setBackground(new java.awt.Color(153, 153, 153));
         btnInvoice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnInvoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Orders.png"))); // NOI18N
         btnInvoice.setText("Invoice ");
@@ -80,6 +89,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnManageCategory.setBackground(new java.awt.Color(153, 153, 153));
         btnManageCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnManageCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/category.png"))); // NOI18N
         btnManageCategory.setText("Manage Category");
@@ -89,6 +99,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnManageProduct.setBackground(new java.awt.Color(153, 153, 153));
         btnManageProduct.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnManageProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/product.png"))); // NOI18N
         btnManageProduct.setText("Manage Product");
@@ -107,7 +118,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnManageCategory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                         .addComponent(btnManageProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -151,7 +162,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(181, 181, 181)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,7 +180,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCategoryActionPerformed
-        // TODO add your handling code here:
+    	manageCategory.setVisible(true);
     }//GEN-LAST:event_btnManageCategoryActionPerformed
 
     private void btnManageProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageProductActionPerformed
