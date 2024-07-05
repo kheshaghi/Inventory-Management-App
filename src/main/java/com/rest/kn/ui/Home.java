@@ -19,6 +19,9 @@ public class Home extends javax.swing.JFrame {
      */
 	@Autowired
 	ManageCategory manageCategory;
+        
+        @Autowired
+        ManageProduct manageProduct;
 	
     public Home() {
         initComponents();
@@ -184,7 +187,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManageCategoryActionPerformed
 
     private void btnManageProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageProductActionPerformed
-        // TODO add your handling code here:
+       manageProduct.setVisible(true);
     }//GEN-LAST:event_btnManageProductActionPerformed
 
     private void btnManageCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageCustomerActionPerformed

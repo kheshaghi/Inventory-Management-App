@@ -3,9 +3,9 @@ package com.rest.kn.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rest.kn.model.User;
+import com.rest.kn.model.Supplier;
 
 @Repository
-public interface SupplierRepository extends JpaRepository<User, Integer>{
+public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
 
 }

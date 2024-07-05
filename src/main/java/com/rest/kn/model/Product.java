@@ -2,6 +2,7 @@ package com.rest.kn.model;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,11 +36,13 @@ public class Product {
 	
 	public Integer gstRate;
 	
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "categoryId",referencedColumnName = "id")
 	public Category category;
 	
-	public String supplier;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "supplierId",referencedColumnName = "id")
+	public Supplier supplier;
 	
 	public Date createdOn;
 	
