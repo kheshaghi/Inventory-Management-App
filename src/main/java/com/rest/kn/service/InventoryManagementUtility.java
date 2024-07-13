@@ -66,6 +66,10 @@ public class InventoryManagementUtility {
 		List<Product> productLst = productRepo.findAll();
 		return productLst;
 	}
+	
+	public Optional<Product> getProductDetail(Integer Id) {
+		return productRepo.findById(Id);
+	}
 
 	public void saveProduct(Product product) {
 		productRepo.save(product);

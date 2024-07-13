@@ -373,7 +373,7 @@ public class ManageProduct extends javax.swing.JFrame {
 	private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSaveActionPerformed
 		try {
 
-			String result = inventoryManagementUtility.validateFields("save",txtProductId.getText(), txtName.getText(),
+			String result = inventoryManagementUtility.validateFields("save", txtProductId.getText(), txtName.getText(),
 					txtDesc.getText(), txtQty.getText(), txtSellingPrice.getText(), txtCostPrice.getText());
 			if (result == null) {
 				Product product = new Product();
@@ -386,17 +386,19 @@ public class ManageProduct extends javax.swing.JFrame {
 				product.setGstRate(Integer.parseInt(comboGSTRate.getSelectedItem().toString().split("%")[0]));
 				product.setCreatedBy("admin");
 				product.setCreatedOn(new Date());
-				if (comboCategory.getSelectedIndex()>0) {
-					Optional<Category> category=inventoryManagementUtility.getCategoryDetails(Integer.parseInt(comboCategory.getSelectedItem().toString().split("-")[0]));
+				if (comboCategory.getSelectedIndex() > 0) {
+					Optional<Category> category = inventoryManagementUtility.getCategoryDetails(
+							Integer.parseInt(comboCategory.getSelectedItem().toString().split("-")[0]));
 					if (category.isPresent()) {
 						product.setCategory(category.get());
 					} else {
 						JOptionPane.showMessageDialog(null, "Category detail not available in database.");
 					}
 				}
-				if (comboSupplier.getSelectedIndex()>0) {
-					
-					Optional<Supplier> supplier=inventoryManagementUtility.getSupplierDetails(Integer.parseInt(comboSupplier.getSelectedItem().toString().split("-")[0]));
+				if (comboSupplier.getSelectedIndex() > 0) {
+
+					Optional<Supplier> supplier = inventoryManagementUtility.getSupplierDetails(
+							Integer.parseInt(comboSupplier.getSelectedItem().toString().split("-")[0]));
 					if (supplier.isPresent()) {
 						product.setSupplier(supplier.get());
 					} else {
@@ -420,7 +422,56 @@ public class ManageProduct extends javax.swing.JFrame {
 	}// GEN-LAST:event_btnSaveActionPerformed
 
 	private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUpdateActionPerformed
-		// TODO add your handling code here:
+		try {
+			String result = inventoryManagementUtility.validateFields("update", txtProductId.getText(), txtName.getText(),
+					txtDesc.getText(), txtQty.getText(), txtSellingPrice.getText(), txtCostPrice.getText());
+			if (result == null) {
+				Optional<Product> productOptional = inventoryManagementUtility.getProductDetail(productId);
+				if (productOptional.isPresent()) {
+					Product product = productOptional.get();
+//					product.setProductId(Integer.parseInt(txtProductId.getText()));
+					product.setProductName(txtName.getText());
+					product.setDescription(txtDesc.getText());
+					product.setQuantity(Integer.parseInt(txtQty.getText()));
+					product.setSellingPrice(Double.parseDouble(txtSellingPrice.getText()));
+					product.setCostPrice(Double.parseDouble(txtCostPrice.getText()));
+					product.setGstRate(Integer.parseInt(comboGSTRate.getSelectedItem().toString().split("%")[0]));
+					product.setCreatedBy("admin");
+					product.setCreatedOn(new Date());
+					if (comboCategory.getSelectedIndex() > 0) {
+						Optional<Category> category = inventoryManagementUtility.getCategoryDetails(
+								Integer.parseInt(comboCategory.getSelectedItem().toString().split("-")[0]));
+						if (category.isPresent()) {
+							product.setCategory(category.get());
+						} else {
+							JOptionPane.showMessageDialog(null, "Category detail not available in database.");
+						}
+					}
+					if (comboSupplier.getSelectedIndex() > 0) {
+
+						Optional<Supplier> supplier = inventoryManagementUtility.getSupplierDetails(
+								Integer.parseInt(comboSupplier.getSelectedItem().toString().split("-")[0]));
+						if (supplier.isPresent()) {
+							product.setSupplier(supplier.get());
+						} else {
+							JOptionPane.showMessageDialog(null, "Supplier detail not available in database.");
+						}
+					}
+					inventoryManagementUtility.saveProduct(product);
+					JOptionPane.showMessageDialog(null, "Product updated successfully!");
+					populateProductTable();
+				}
+			} else {
+				if (result.equals("Quantity must be number")) {
+					txtQty.setText("");
+					return;
+				}
+				JOptionPane.showMessageDialog(null, result);
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
 	}// GEN-LAST:event_btnUpdateActionPerformed
 
 	private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnResetActionPerformed
@@ -461,6 +512,7 @@ public class ManageProduct extends javax.swing.JFrame {
 		btnSave.setEnabled(false);
 		btnSearch.setEnabled(false);
 		btnUpdate.setEnabled(true);
+		txtProductId.setEnabled(false);
 	}// GEN-LAST:event_tableProductMouseClicked
 
 	private void populateProductTable() {
@@ -532,6 +584,7 @@ public class ManageProduct extends javax.swing.JFrame {
 		btnSave.setEnabled(true);
 		btnSearch.setEnabled(true);
 		btnUpdate.setEnabled(false);
+		txtProductId.setEnabled(true);
 	}
 
 	/**
