@@ -57,6 +57,10 @@ public class InventoryManagementUtility {
 		List<Supplier> supplierLst = supplierRepo.findAll();
 		return supplierLst;
 	}
+	
+	public Optional<Supplier> getSupplierDetails(Integer Id) {
+		return supplierRepo.findById(Id);
+	}
 
 	public List<Product> preloadProductTable() {
 		List<Product> productLst = productRepo.findAll();

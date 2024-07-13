@@ -6,6 +6,7 @@ package com.rest.kn.ui;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -383,15 +384,24 @@ public class ManageProduct extends javax.swing.JFrame {
 				product.setSellingPrice(Double.parseDouble(txtSellingPrice.getText()));
 				product.setCostPrice(Double.parseDouble(txtCostPrice.getText()));
 				product.setGstRate(Integer.parseInt(comboGSTRate.getSelectedItem().toString().split("%")[0]));
+				product.setCreatedBy("admin");
+				product.setCreatedOn(new Date());
 				if (comboCategory.getSelectedIndex()>0) {
-					Category category=new Category();
-					category.setId(Integer.parseInt(comboCategory.getSelectedItem().toString().split("-")[0]));
-					product.setCategory(category);
+					Optional<Category> category=inventoryManagementUtility.getCategoryDetails(Integer.parseInt(comboCategory.getSelectedItem().toString().split("-")[0]));
+					if (category.isPresent()) {
+						product.setCategory(category.get());
+					} else {
+						JOptionPane.showMessageDialog(null, "Category detail not available in database.");
+					}
 				}
 				if (comboSupplier.getSelectedIndex()>0) {
-					Supplier supplier=new Supplier();
-					supplier.setId(Integer.parseInt(comboSupplier.getSelectedItem().toString().split("-")[0]));
-					product.setSupplier(supplier);
+					
+					Optional<Supplier> supplier=inventoryManagementUtility.getSupplierDetails(Integer.parseInt(comboSupplier.getSelectedItem().toString().split("-")[0]));
+					if (supplier.isPresent()) {
+						product.setSupplier(supplier.get());
+					} else {
+						JOptionPane.showMessageDialog(null, "Supplier detail not available in database.");
+					}
 				}
 				inventoryManagementUtility.saveProduct(product);
 				JOptionPane.showMessageDialog(null, "Product saved successfully!");
